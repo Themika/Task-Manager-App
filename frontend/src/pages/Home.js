@@ -5,6 +5,7 @@ import TaskDetail from "../components/TaskDetail.js";
 
 const Home = () => {
   const [tasks, setTasks] = useState(null);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -22,11 +23,28 @@ const Home = () => {
     fetchTasks();
   }, []);
 
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const filteredTasks = tasks?.filter((task) =>
+    task.title.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <div className="home">
+      <input
+        type="text"
+        placeholder="Search..."
+        className="search-bar"
+        value={search}
+        onChange={handleSearch}
+      />
       <div className="tasks">
-        {tasks &&
-          tasks.map((task) => <TaskDetail key={task._id} task={task} />)}
+        {filteredTasks &&
+          filteredTasks.map((task) => (
+            <TaskDetail key={task._id} task={task} />
+          ))}
       </div>
     </div>
   );

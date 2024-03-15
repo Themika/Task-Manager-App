@@ -35,16 +35,19 @@ header a {
 /* homepage */
 .home {
   display: grid;
-  grid-template-columns: 3fr 1fr;
-  gap: 100px;
+  grid-template-rows: auto auto;
+  gap: 20px;
+  grid-auto-flow: row;
 }
 .task-details {
   background: #fff;
   border-radius: 4px;
-  margin: 20px auto;
+  margin-right: auto; /* push the element to the left */
+  margin-bottom: 20px; /* add space below the element */
   padding: 20px;
   position: relative;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+  width: 66.66%; /* 2/3 of the screen width */
 }
 .task-details h4 {
   margin: 0 0 10px 0;
@@ -65,4 +68,14 @@ header a {
   padding: 6px;
   border-radius: 50%;
   color: #333;
+}
+.search-bar {
+  background: #fff;
+  border-radius: 4px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+  width: 80%;
+  width: 66.66%; /* 2/3 of the screen width */
+  margin-right: auto; /* push the element to the left */
 }
