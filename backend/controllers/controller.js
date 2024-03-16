@@ -2,7 +2,7 @@ const models = require("../models/datamodels");
 const mongoose = require("mongoose");
 //Get all tasks
 const getTasks = async (req, res) => {
-  const tasks = await models.find({}).sort({ createdAt: -1 });
+  const tasks = await models.find({}).sort({ important: -1, createdAt: -1 });
   res.status(200).json(tasks);
 };
 //Get single tasks

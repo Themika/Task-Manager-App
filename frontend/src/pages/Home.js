@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-
-// components
+/// components
 import TaskDetail from "../components/TaskDetail.js";
 import TaskForm from "../components/taskForm";
 

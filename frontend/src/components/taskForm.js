@@ -8,7 +8,6 @@ const TaskForm = () => {
   const [important, setImportant] = useState(false);
   const [dueDate, setDueDate] = useState("");
   const [error, setError] = useState(null);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
