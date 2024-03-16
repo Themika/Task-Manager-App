@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 // components
 import TaskDetail from "../components/TaskDetail.js";
+import TaskForm from "../components/taskForm";
 
 const Home = () => {
   const [tasks, setTasks] = useState(null);
@@ -41,10 +42,13 @@ const Home = () => {
         onChange={handleSearch}
       />
       <div className="tasks">
-        {filteredTasks &&
-          filteredTasks.map((task) => (
-            <TaskDetail key={task._id} task={task} />
-          ))}
+        <div>
+          {filteredTasks &&
+            filteredTasks.map((task) => (
+              <TaskDetail key={task._id} task={task} />
+            ))}
+        </div>
+        <TaskForm />
       </div>
     </div>
   );
