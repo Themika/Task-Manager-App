@@ -3,6 +3,13 @@
 :root {
   --primary: #1aac83;
   --error: #e7195a;
+  --bg: #f1f1f1;
+  --bg-accent: #fff;
+  --text-color:var(--primary);
+  --nav-size: 60px;
+  --border:1px solid #f1f1f1;
+  --border-radius: 10px;
+  --speed: 500ms;
 }
 
 body {
@@ -111,6 +118,9 @@ form button {
   cursor: pointer;
   width: 100%;
 }
+form button:hover {
+  filter: brightness(0.9);
+}
 
 div.error {
   padding: 10px;
@@ -159,4 +169,62 @@ div.error {
   top: 15px;
   right: 100px;
   cursor: pointer;
+}
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-content {
+  display: flex;
+  align-items: center;
+}
+
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #ffffff;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+.dropdown-content .dropdown-item {
+  color: #333333;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+.dropdown-content .dropdown-item:hover {
+  background-color: #f8f8f8;
+  color: #1aac83;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-button {
+  background-color: #1aac83;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dropdown-button:hover, .dropdown-button:focus {
+  background-color: #138a6e;
 }
