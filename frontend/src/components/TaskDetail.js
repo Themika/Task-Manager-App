@@ -15,9 +15,12 @@ const TaskDetail = ({ task }) => {
   const [editedTask, setEditedTask] = useState({
     title: task.title,
     description: task.description,
+    dueDate: task.dueDate,
+    important: task.important,
   });
   const updateImportant = async (e) => {
     e.preventDefault();
+    setEditedTask({ ...editedTask, important: !editedTask.important });
     const res = await fetch(`/api/taskmanager/${task._id}`, {
       method: "PATCH",
       body: JSON.stringify({
@@ -85,7 +88,7 @@ const TaskDetail = ({ task }) => {
   const handleSave = async () => {
     const res = await fetch(`/api/taskmanager/${task._id}`, {
       method: "PATCH",
-      body: JSON.stringify(editedTask),
+      body: JSON.stringify({ ...task, ...editedTask }), // Spread task and editedTask
       headers: {
         "Content-Type": "application/json",
       },
