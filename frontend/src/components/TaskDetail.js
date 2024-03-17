@@ -2,10 +2,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
 import { faCheckSquare as filledSquare } from "@fortawesome/free-solid-svg-icons";
 import { faSquare as outlinedSquare } from "@fortawesome/free-regular-svg-icons";
-import { useTaskContext } from "../hooks/useTaskContext"; // Add this line
+import { useTaskContext } from "../hooks/useTaskContext";
 
 const TaskDetail = ({ task }) => {
-  const { dispatch } = useTaskContext(); // Add this line
+  const { dispatch } = useTaskContext();
 
   const updateImportant = async (e) => {
     e.preventDefault();
@@ -51,6 +51,26 @@ const TaskDetail = ({ task }) => {
     }
   };
 
+  const handleClick = async (e) => {
+    const res = await fetch(`/api/taskmanager/${task._id}`, {
+      methdod: "DELETE",
+    });
+    const json = await res.json();
+
+    if (res.ok) {
+      dispatch({
+        type: "DELETE_TASK",
+        payload: json,
+      });
+    }
+  };
+  const updateAndDelete = async (e) => {
+    // Call updateCompleted
+    await updateCompleted(e);
+
+    // Call handleClick
+    await handleClick(e);
+  };
   return (
     <div className="task-details">
       <h4>{task.title}</h4>
@@ -59,8 +79,8 @@ const TaskDetail = ({ task }) => {
         <FontAwesomeIcon
           icon={task.completed ? filledSquare : outlinedSquare}
           color={task.completed ? "green" : "grey"}
-          size="lg" // Add this line to make the icon larger
-          onClick={updateCompleted}
+          size="lg"
+          onClick={updateAndDelete}
         />
       </div>
       <div className="star-icon">
