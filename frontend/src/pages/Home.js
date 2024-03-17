@@ -5,7 +5,6 @@ import TaskDetail from "../components/TaskDetail.js";
 import TaskForm from "../components/taskForm";
 
 const Home = () => {
-  // const [tasks, setTasks] = useState(null);
   const [search, setSearch] = useState("");
   const { tasks, dispatch } = useTaskContext();
   useEffect(() => {
@@ -32,6 +31,8 @@ const Home = () => {
     task.title.toLowerCase().includes(search.toLowerCase())
   );
 
+  const sortedTasks = filteredTasks?.sort((a, b) => b.important - a.important);
+
   return (
     <div className="home">
       <input
@@ -43,8 +44,8 @@ const Home = () => {
       />
       <div className="tasks">
         <div>
-          {filteredTasks &&
-            filteredTasks.map((task) => (
+          {sortedTasks &&
+            sortedTasks.map((task) => (
               <TaskDetail key={task._id} task={task} />
             ))}
         </div>

@@ -154,3 +154,9 @@ div.error {
   top: 16px;
   right: 15px;
 }
+.edit-icon{
+  position: absolute;
+  top: 15px;
+  right: 100px;
+  cursor: pointer;
+}

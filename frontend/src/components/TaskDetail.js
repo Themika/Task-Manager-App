@@ -1,12 +1,21 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar, faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
 import { faCheckSquare as filledSquare } from "@fortawesome/free-solid-svg-icons";
 import { faSquare as outlinedSquare } from "@fortawesome/free-regular-svg-icons";
 import { useTaskContext } from "../hooks/useTaskContext";
+import {
+  faStar,
+  faStarHalfAlt,
+  faPenSquare,
+} from "@fortawesome/free-solid-svg-icons";
+import React, { useState } from "react";
 
 const TaskDetail = ({ task }) => {
   const { dispatch } = useTaskContext();
-
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedTask, setEditedTask] = useState({
+    title: task.title,
+    description: task.description,
+  });
   const updateImportant = async (e) => {
     e.preventDefault();
     const res = await fetch(`/api/taskmanager/${task._id}`, {
@@ -23,7 +32,7 @@ const TaskDetail = ({ task }) => {
       dispatch({
         type: "UPDATE_TASK_IMPORTANT",
         payload: { _id: task._id, important: !task.important },
-      }); // Add this line
+      });
     } else {
       console.error("Failed to update task:", data);
     }
@@ -45,7 +54,7 @@ const TaskDetail = ({ task }) => {
       dispatch({
         type: "UPDATE_TASK_COMPLETED",
         payload: { _id: task._id, completed: !task.completed },
-      }); // Add this line
+      });
     } else {
       console.error("Failed to update task:", data);
     }
@@ -53,28 +62,69 @@ const TaskDetail = ({ task }) => {
 
   const handleClick = async (e) => {
     const res = await fetch(`/api/taskmanager/${task._id}`, {
-      methdod: "DELETE",
+      method: "DELETE",
     });
-    const json = await res.json();
 
     if (res.ok) {
       dispatch({
         type: "DELETE_TASK",
-        payload: json,
+        payload: { _id: task._id },
       });
     }
   };
   const updateAndDelete = async (e) => {
-    // Call updateCompleted
+    e.preventDefault();
     await updateCompleted(e);
 
-    // Call handleClick
     await handleClick(e);
+  };
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
+  const handleSave = async () => {
+    const res = await fetch(`/api/taskmanager/${task._id}`, {
+      method: "PATCH",
+      body: JSON.stringify(editedTask),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await res.json();
+    if (res.ok) {
+      dispatch({
+        type: "UPDATE_TASK",
+        payload: { _id: task._id, ...editedTask },
+      });
+    } else {
+      console.error("Failed to update task:", data);
+    }
+    setIsEditing(false);
   };
   return (
     <div className="task-details">
-      <h4>{task.title}</h4>
-      <p>{task.description}</p>
+      {isEditing ? (
+        <input
+          type="text"
+          value={editedTask.title}
+          onChange={(e) =>
+            setEditedTask({ ...editedTask, title: e.target.value })
+          }
+        />
+      ) : (
+        <h4>{task.title}</h4>
+      )}
+      {isEditing ? (
+        <input
+          type="text"
+          value={editedTask.description}
+          onChange={(e) =>
+            setEditedTask({ ...editedTask, description: e.target.value })
+          }
+        />
+      ) : (
+        <p>{task.description}</p>
+      )}
       <div className="check-box">
         <FontAwesomeIcon
           icon={task.completed ? filledSquare : outlinedSquare}
@@ -90,8 +140,28 @@ const TaskDetail = ({ task }) => {
           onClick={updateImportant}
         />
       </div>
+      <div className="edit-icon">
+        <FontAwesomeIcon
+          icon={faPenSquare}
+          color="grey"
+          onClick={isEditing ? handleSave : handleEdit}
+          size="lg"
+        />{" "}
+      </div>
       <p>
-        <strong>{task.dueDate}</strong>
+        {isEditing ? (
+          <input
+            type="date"
+            value={editedTask.dueDate}
+            onChange={(e) =>
+              setEditedTask({ ...editedTask, dueDate: e.target.value })
+            }
+          />
+        ) : (
+          <p>
+            <strong>{task.dueDate}</strong>
+          </p>
+        )}{" "}
       </p>
     </div>
   );
