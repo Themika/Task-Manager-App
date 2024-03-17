@@ -1,19 +1,20 @@
 import { useEffect, useState } from "react";
+import { useTaskContext } from "../hooks/useTaskContext.js";
 /// components
 import TaskDetail from "../components/TaskDetail.js";
 import TaskForm from "../components/taskForm";
 
 const Home = () => {
-  const [tasks, setTasks] = useState(null);
+  // const [tasks, setTasks] = useState(null);
   const [search, setSearch] = useState("");
-
+  const { tasks, dispatch } = useTaskContext();
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const res = await fetch("/api/taskmanager/");
+        const res = await fetch("/api/taskmanager");
         const data = await res.json();
         if (res.ok) {
-          setTasks(data);
+          dispatch({ type: "SET_TASKS", payload: data });
         }
       } catch (error) {
         console.error("Failed to fetch tasks:", error);
@@ -21,7 +22,7 @@ const Home = () => {
     };
 
     fetchTasks();
-  }, []);
+  }, [dispatch]);
 
   const handleSearch = (event) => {
     setSearch(event.target.value);

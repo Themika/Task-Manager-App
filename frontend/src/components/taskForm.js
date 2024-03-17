@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckSquare, faSquare } from "@fortawesome/free-regular-svg-icons";
+import { useTaskContext } from "../hooks/useTaskContext";
 const TaskForm = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -8,6 +9,7 @@ const TaskForm = () => {
   const [important, setImportant] = useState(false);
   const [dueDate, setDueDate] = useState("");
   const [error, setError] = useState(null);
+  const { dispatch } = useTaskContext();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -28,7 +30,6 @@ const TaskForm = () => {
     });
 
     const json = await res.json();
-
     if (!res.ok) {
       setError(json.error);
     }
@@ -40,6 +41,7 @@ const TaskForm = () => {
       setCompleted(false);
       setImportant(false);
       setDueDate("");
+      dispatch({ type: "CREATE_TASK", payload: json });
     }
   };
 

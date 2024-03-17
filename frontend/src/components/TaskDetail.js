@@ -2,8 +2,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
 import { faCheckSquare as filledSquare } from "@fortawesome/free-solid-svg-icons";
 import { faSquare as outlinedSquare } from "@fortawesome/free-regular-svg-icons";
+import { useTaskContext } from "../hooks/useTaskContext"; // Add this line
 
 const TaskDetail = ({ task }) => {
+  const { dispatch } = useTaskContext(); // Add this line
+
   const updateImportant = async (e) => {
     e.preventDefault();
     const res = await fetch(`/api/taskmanager/${task._id}`, {
@@ -16,7 +19,12 @@ const TaskDetail = ({ task }) => {
       },
     });
     const data = await res.json();
-    if (!res.ok) {
+    if (res.ok) {
+      dispatch({
+        type: "UPDATE_TASK_IMPORTANT",
+        payload: { _id: task._id, important: !task.important },
+      }); // Add this line
+    } else {
       console.error("Failed to update task:", data);
     }
   };
@@ -33,7 +41,12 @@ const TaskDetail = ({ task }) => {
       },
     });
     const data = await res.json();
-    if (!res.ok) {
+    if (res.ok) {
+      dispatch({
+        type: "UPDATE_TASK_COMPLETED",
+        payload: { _id: task._id, completed: !task.completed },
+      }); // Add this line
+    } else {
       console.error("Failed to update task:", data);
     }
   };
