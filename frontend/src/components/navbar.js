@@ -22,6 +22,9 @@ const Navbar = () => {
                 <Link to="/analytics" className="dropdown-item">
                   Analytics
                 </Link>
+                <Link to="/settings" className="dropdown-item">
+                  Settings
+                </Link>
               </div>
             )}
           </div>

@@ -7,6 +7,7 @@ import {
 import Home from "./pages/Home";
 import Navbar from "./components/navbar";
 import Analytics from "./pages/Analytics";
+import Settings from "./pages/settings";
 function App() {
   return (
     <div className="App">
@@ -16,6 +17,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/analytics" element={<Analytics />} />
+            <Route path="/settings" element={<Settings />} />
           </Routes>
         </div>
       </BrowserRouter>

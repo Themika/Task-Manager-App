@@ -228,3 +228,57 @@ div.error {
 .dropdown-button:hover, .dropdown-button:focus {
   background-color: #138a6e;
 }
+.chart-container {
+  width: 75%; /* Increase as needed */
+  height: 20%; /* Increase as needed */
+  margin: auto;
+  border: 2px solid var(--primary); /* Use the primary color for the border */
+  box-shadow: 10px 10px 5px rgba(0,0,0,0.1); /* Lighten the shadow */
+  padding: 20px;
+  background-color: var(--bg-accent); /* Use the accent color for the background */
+}
+
+.analytics-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 20px; /* Adjust as needed */
+}
+
+.chart-container {
+  flex: 1;
+  /* Other styles... */
+}
+
+.analytics-description {
+  flex: 1;
+  /* Add styles for the description box */
+  background-color: var(--bg-accent);
+  border: 2px solid var(--primary);
+  padding: 20px;
+  box-shadow: 10px 10px 5px rgba(0,0,0,0.1);
+}
+
+.home {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.task-details {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.task-details h2 {
+  color: var(--primary);
+}
+
+.task-details p {
+  color: var(--primary);;
+}
+.email-checkbox{
+  margin-right: 100px;
+  color: var(--primary);
+}
