@@ -266,9 +266,42 @@ div.error {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-
+.home-settings{
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  width: 1500px;
+}
 
 .email-checkbox{
   margin-right: 100px;
   color: var(--primary);
+}
+.settings-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.left-section {
+  flex: 3; /* Adjust as needed */
+}
+
+.right-section {
+  flex: 1; /* Adjust as needed */
+  margin-left: 20px;
+}
+.task-details-name {
+  background-color: white;
+  padding: 10px; /* Adjust as needed */
+  height: 50px;
+}
+.form-username{
+  width: auto;
+}
+.notifications {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  justify-content: space-between;
 }
