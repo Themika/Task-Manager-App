@@ -6,7 +6,7 @@ import { faSquare as outlinedSquare } from "@fortawesome/free-regular-svg-icons"
 const Settings = () => {
   const [emailNotifications, setEmailNotifications] = useState(false);
   const [pushNotifications, setPushNotifications] = useState(false);
-  const nodemailer = require("nodemailer");
+  // const nodemailer = require("nodemailer");
 
   const toggleEmailNotifications = () => {
     setEmailNotifications(!emailNotifications);
